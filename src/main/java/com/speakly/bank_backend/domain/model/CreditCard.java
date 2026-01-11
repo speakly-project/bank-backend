@@ -3,17 +3,28 @@ package com.speakly.bank_backend.domain.model;
 import java.time.YearMonth;
 
 public class CreditCard {
+    private Long id;
     private String cardNumber;
     private YearMonth expirationDate;
-    private String cvc;
+    private String cvv;
     private String fullName;
+    private BankAccount bankAccount;
 
-
-    public CreditCard(String cardNumber, YearMonth expirationDate, String cvc, String fullName) {
+    public CreditCard(Long id, String cardNumber, YearMonth expirationDate, String cvc, String fullName, BankAccount bankAccount) {
+        this.id = id;
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
-        this.cvc = cvc;
+        this.cvv = cvc;
         this.fullName = fullName;
+        this.bankAccount = bankAccount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCardNumber() {
@@ -33,11 +44,11 @@ public class CreditCard {
     }
 
     public String getCvc() {
-        return cvc;
+        return cvv;
     }
 
     public void setCvc(String cvc) {
-        this.cvc = cvc;
+        this.cvv = cvc;
     }
 
     public String getFullName() {
@@ -46,5 +57,13 @@ public class CreditCard {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public BankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
     }
 }

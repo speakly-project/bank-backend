@@ -19,7 +19,7 @@ public class CreditCardJpaEntity implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bank_account_id")
-    private BankAccountJpaEntity bank_account;
+    private BankAccountJpaEntity bankAccount;
 
     public CreditCardJpaEntity() {}
 
@@ -29,7 +29,7 @@ public class CreditCardJpaEntity implements Serializable {
         this.expiration_date = expirationDate;
         this.cvc = cvc;
         this.full_name = fullName;
-        this.bank_account = bankAccount;
+        this.bankAccount = bankAccount;
     }
 
     public String getCard_number() {
@@ -64,12 +64,11 @@ public class CreditCardJpaEntity implements Serializable {
         this.full_name = full_name;
     }
 
-    public BankAccountJpaEntity getBank_account() {
-        return bank_account;
+    public BankAccountJpaEntity getBankAccount() {
+        return bankAccount;
     }
 
-    public void setBank_account(BankAccountJpaEntity bank_account) {
-        this.bank_account = bank_account;
+    public void setBankAccount(BankAccountJpaEntity bankAccount) {
+        this.bankAccount = bankAccount;
     }
 }
-

@@ -4,6 +4,15 @@ import com.speakly.bank_backend.domain.repository.BankAccountRepository;
 import com.speakly.bank_backend.domain.repository.BankTransactionRepository;
 import com.speakly.bank_backend.domain.repository.ClientRepository;
 import com.speakly.bank_backend.domain.repository.CreditCardRepository;
+import com.speakly.bank_backend.domain.service.BankAccountService;
+import com.speakly.bank_backend.domain.service.BankTransactionService;
+import com.speakly.bank_backend.domain.service.ClientService;
+import com.speakly.bank_backend.domain.service.CreditCardService;
+import com.speakly.bank_backend.domain.service.impl.BankAccountServiceImpl;
+import com.speakly.bank_backend.domain.service.impl.BankTransactionServiceImpl;
+import com.speakly.bank_backend.domain.service.impl.ClientServiceImpl;
+import com.speakly.bank_backend.domain.service.impl.CreditCardServiceImpl;
+import com.speakly.bank_backend.domain.usecase.CardTransactionUseCase;
 import com.speakly.bank_backend.persistence.dao.BankAccountDao;
 import com.speakly.bank_backend.persistence.dao.BankTransactionDao;
 import com.speakly.bank_backend.persistence.dao.ClientDao;
@@ -16,6 +25,7 @@ import com.speakly.bank_backend.persistence.repository.BankAccountRepositoryImpl
 import com.speakly.bank_backend.persistence.repository.BankTransactionRepositoryImpl;
 import com.speakly.bank_backend.persistence.repository.ClientRepositoryImpl;
 import com.speakly.bank_backend.persistence.repository.CreditCardRepositoryImpl;
+import com.speakly.bank_backend.usecase.CardTransactionUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -60,6 +70,33 @@ public class SpringConfig {
     @Bean
     public BankTransactionRepository bankTransactionRepository(BankTransactionDao bankTransactionDao) {
         return new BankTransactionRepositoryImpl(bankTransactionDao);
+    }
+
+    @Bean
+    public ClientService clientService(ClientRepository clientRepository) {
+        return new ClientServiceImpl(clientRepository);
+    }
+
+    @Bean
+    public BankAccountService bankAccountService(BankAccountRepository bankAccountRepository) {
+        return new BankAccountServiceImpl(bankAccountRepository);
+    }
+
+    @Bean
+    public CreditCardService creditCardService(CreditCardRepository creditCardRepository) {
+        return new CreditCardServiceImpl(creditCardRepository);
+    }
+
+    @Bean
+    public BankTransactionService bankTransactionService(BankTransactionRepository bankTransactionRepository) {
+        return new BankTransactionServiceImpl(bankTransactionRepository);
+    }
+
+    @Bean
+    public CardTransactionUseCase cardTransactionUseCase(CreditCardService creditCardService,
+                                                         BankAccountService bankAccountService,
+                                                         BankTransactionService bankTransactionService) {
+        return new CardTransactionUseCaseImpl(creditCardService, bankAccountService, bankTransactionService);
     }
 }
 

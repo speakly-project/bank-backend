@@ -7,19 +7,22 @@ public class BankTransaction {
     private Long id;
     private TransactionOrigin origin;
     private TransactionType type;
-    private CreditCard creditCard;
+    private CreditCard orginCreditCard;
     private LocalDateTime transactionDate;
     private BigDecimal amount;
     private String description;
+    private BankAccount bankAccount;
 
-    public BankTransaction(Long id, TransactionOrigin origin, TransactionType type, CreditCard creditCard, LocalDateTime transactionDate, BigDecimal amount, String description) {
+    public BankTransaction(Long id, TransactionOrigin origin, TransactionType type, CreditCard orginCreditCard,
+                          LocalDateTime transactionDate, BigDecimal amount, String description, BankAccount bankAccount) {
         this.id = id;
         this.origin = origin;
         this.type = type;
-        this.creditCard = creditCard;
+        this.orginCreditCard = orginCreditCard;
         this.transactionDate = transactionDate;
         this.amount = amount;
         this.description = description;
+        this.bankAccount = bankAccount;
     }
 
     public Long getId() {
@@ -46,12 +49,12 @@ public class BankTransaction {
         this.type = type;
     }
 
-    public CreditCard getCreditCard() {
-        return creditCard;
+    public CreditCard getOrginCreditCard() {
+        return orginCreditCard;
     }
 
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
+    public void setOrginCreditCard(CreditCard orginCreditCard) {
+        this.orginCreditCard = orginCreditCard;
     }
 
     public LocalDateTime getTransactionDate() {
@@ -76,5 +79,13 @@ public class BankTransaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
     }
 }
