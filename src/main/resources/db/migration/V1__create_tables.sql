@@ -42,11 +42,3 @@ CREATE TABLE bank_transaction (
     FOREIGN KEY (credit_card_number) REFERENCES credit_card(card_number) ON DELETE SET NULL,
     FOREIGN KEY (bank_account_id) REFERENCES bank_account(id) ON DELETE CASCADE
 );
-
--- Índices para mejorar el rendimiento
-CREATE INDEX idx_bank_account_client ON bank_account(client_id);
-CREATE INDEX idx_credit_card_account ON credit_card(bank_account_id);
-CREATE INDEX idx_transaction_account ON bank_transaction(bank_account_id);
-CREATE INDEX idx_transaction_date ON bank_transaction(transaction_date);
-CREATE INDEX idx_transaction_card ON bank_transaction(credit_card_number);
-

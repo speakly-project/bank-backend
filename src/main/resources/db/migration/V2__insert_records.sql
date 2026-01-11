@@ -30,4 +30,3 @@ INSERT INTO bank_transaction (origin, type, credit_card_number, transaction_date
 ('DOM', 'SUBTRACT', NULL, '2026-01-05 09:00:00', 45.00, 'Domiciliación internet', 3),
 ('TRANSFER', 'ADD', NULL, '2026-01-01 13:00:00', 5000.00, 'Ingreso inicial', 4),
 ('CREDIT_CARD', 'SUBTRACT', '5500005555555559', '2026-01-06 20:15:00', 200.00, 'Compra en tienda de electrónica', 4);
-
