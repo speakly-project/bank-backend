@@ -14,7 +14,7 @@ INSERT INTO bank_account (iban, balance, client_id) VALUES
 -- Insertar tarjetas de crédito
 INSERT INTO credit_card (card_number, expiration_date, cvc, full_name, bank_account_id) VALUES
 ('4532015112830366', '2027-12', '123', 'Juan Pérez García', 1),
-('5425233430109903', '2028-06', '456', 'Juan Pérez García', 2),
+('5425233430109903', '2028-06', '456', 'Juan Pérez García', 1),
 ('4716042456789012', '2027-09', '789', 'María López Martínez', 3),
 ('5500005555555559', '2029-03', '321', 'Carlos Ruiz Sánchez', 4);
 

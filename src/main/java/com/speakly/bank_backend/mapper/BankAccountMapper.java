@@ -24,7 +24,8 @@ public class BankAccountMapper {
         return new BankAccount(
                 entity.getId(),
                 entity.getIban(),
-                entity.getBalance()
+                entity.getBalance(),
+                entity.getClient() != null ? ClientMapper.fromEntityToDomain(entity.getClient()) : null
         );
     }
 
@@ -36,7 +37,7 @@ public class BankAccountMapper {
                 model.getId(),
                 model.getIBAN(),
                 model.getBalance(),
-                null
+                model.getClient() != null ? ClientMapper.fromDomainToEntity(model.getClient()) : null
         );
     }
 

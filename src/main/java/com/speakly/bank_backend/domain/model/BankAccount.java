@@ -6,11 +6,13 @@ public class BankAccount {
     private Long id;
     private String IBAN;
     private BigDecimal balance;
+    private Client client;
 
-    public BankAccount(Long id, String IBAN, BigDecimal balance) {
+    public BankAccount(Long id, String IBAN, BigDecimal balance, Client client) {
         this.id = id;
         this.IBAN = IBAN;
         this.balance = balance;
+        this.client = client;
     }
 
     public Long getId() {
@@ -35,5 +37,13 @@ public class BankAccount {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }
