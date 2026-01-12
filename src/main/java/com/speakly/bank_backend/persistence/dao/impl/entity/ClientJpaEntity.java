@@ -26,6 +26,7 @@ public class ClientJpaEntity implements Serializable {
 
     private String dni;
 
+    @Column(name = "api_key")
     private String api_token;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -78,9 +78,6 @@ public class ClientServiceImpl implements ClientService {
     }
     @Override
     public Optional<Client> getByApiKey(String apiKey) {
-        if (clientRepository.findByApiKey(apiKey).isEmpty()){
-            throw new ResourceNotFoundException("Client not found with apiKey: " + apiKey);
-        }
         return clientRepository.findByApiKey(apiKey);
     }
 }
