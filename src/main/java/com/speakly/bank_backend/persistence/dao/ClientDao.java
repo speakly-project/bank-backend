@@ -11,7 +11,7 @@ public interface ClientDao {
     void deleteById(Long id);
     ClientJpaEntity save(ClientJpaEntity client);
     List<ClientJpaEntity> findAll();
-    Optional<ClientJpaEntity> findByApiToken(String apiToken);
+    Optional<ClientJpaEntity> findByApiKey(String apiToken);
     Optional<ClientJpaEntity> findByDni(String dni);
     Optional<ClientJpaEntity> findByUsername(String username);
     Optional<ClientJpaEntity> findById(Long id);

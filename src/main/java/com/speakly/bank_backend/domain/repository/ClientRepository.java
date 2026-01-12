@@ -9,7 +9,7 @@ public interface ClientRepository {
     Optional<Client> findById(Long id);
     Optional<Client> findByUsername(String username);
     Optional<Client> findByDni(String dni);
-    Optional<Client> findByApiToken(String apiToken);
+    Optional<Client> findByApiKey(String apiKey);
     List<Client> findAll();
     Client save(Client client);
     void deleteById(Long id);

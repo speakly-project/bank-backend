@@ -46,7 +46,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Optional<ClientJpaEntity> findByApiToken(String apiToken) {
+    public Optional<ClientJpaEntity> findByApiKey(String apiToken) {
         try {
             String sql = "SELECT c FROM ClientJpaEntity c WHERE c.api_token = :apiToken";
             ClientJpaEntity result = entityManager.createQuery(sql, ClientJpaEntity.class)

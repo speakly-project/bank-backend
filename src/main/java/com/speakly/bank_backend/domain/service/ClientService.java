@@ -11,5 +11,7 @@ public interface ClientService {
     Client create(Client client);
     Client update(Client client);
     void deleteById(Long id);
+    Optional<Client> getByApiKey(String apiKey);
+
 }
 

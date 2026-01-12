@@ -36,8 +36,8 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public Optional<Client> findByApiToken(String apiToken) {
-        return clientDao.findByApiToken(apiToken)
+    public Optional<Client> findByApiKey(String apiKey) {
+        return clientDao.findByApiKey(apiKey)
                 .map(ClientMapper::fromEntityToDomain);
     }
 

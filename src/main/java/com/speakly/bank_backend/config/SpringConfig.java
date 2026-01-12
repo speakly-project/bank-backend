@@ -95,8 +95,9 @@ public class SpringConfig {
     @Bean
     public CardTransactionUseCase cardTransactionUseCase(CreditCardService creditCardService,
                                                          BankAccountService bankAccountService,
-                                                         BankTransactionService bankTransactionService) {
-        return new CardTransactionUseCaseImpl(creditCardService, bankAccountService, bankTransactionService);
+                                                         BankTransactionService bankTransactionService,
+                                                         ClientService clientService) {
+        return new CardTransactionUseCaseImpl(creditCardService, bankAccountService, bankTransactionService, clientService);
     }
 }
 
