@@ -7,7 +7,7 @@ CREATE TABLE client (
     first_surname VARCHAR(100) NOT NULL,
     second_surname VARCHAR(100),
     dni VARCHAR(20) NOT NULL UNIQUE,
-    api_token VARCHAR(255)
+    api_key VARCHAR(255)
 );
 
 -- Tabla de cuentas bancarias (pertenece a un cliente, puede tener muchas tarjetas de crédito)
