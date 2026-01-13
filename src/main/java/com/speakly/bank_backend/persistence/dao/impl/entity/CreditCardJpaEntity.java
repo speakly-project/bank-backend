@@ -13,7 +13,7 @@ public class CreditCardJpaEntity implements Serializable {
 
     private String expiration_date;
 
-    private String cvc;
+    private String cvv;
 
     private String full_name;
 
@@ -23,11 +23,11 @@ public class CreditCardJpaEntity implements Serializable {
 
     public CreditCardJpaEntity() {}
 
-    public CreditCardJpaEntity(String cardNumber, String expirationDate, String cvc,
+    public CreditCardJpaEntity(String cardNumber, String expirationDate, String cvv,
                               String fullName, BankAccountJpaEntity bankAccount) {
         this.card_number = cardNumber;
         this.expiration_date = expirationDate;
-        this.cvc = cvc;
+        this.cvv = cvv;
         this.full_name = fullName;
         this.bankAccount = bankAccount;
     }
@@ -48,12 +48,12 @@ public class CreditCardJpaEntity implements Serializable {
         this.expiration_date = expiration_date;
     }
 
-    public String getCvc() {
-        return cvc;
+    public String getCvv() {
+        return cvv;
     }
 
-    public void setCvc(String cvc) {
-        this.cvc = cvc;
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
     }
 
     public String getFull_name() {

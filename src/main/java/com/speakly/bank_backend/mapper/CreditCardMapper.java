@@ -31,7 +31,7 @@ public class CreditCardMapper {
                 null,
                 entity.getCard_number(),
                 expirationDate,
-                entity.getCvc(),
+                entity.getCvv(),
                 entity.getFull_name(),
                 entity.getBankAccount() != null ? BankAccountMapper.fromEntityToModel(entity.getBankAccount()) : null
         );
