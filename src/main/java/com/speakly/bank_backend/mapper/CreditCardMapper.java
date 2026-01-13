@@ -1,5 +1,6 @@
 package com.speakly.bank_backend.mapper;
 
+import com.speakly.bank_backend.controller.response.CreditCardResponse;
 import com.speakly.bank_backend.domain.model.CreditCard;
 import com.speakly.bank_backend.persistence.dao.impl.entity.CreditCardJpaEntity;
 
@@ -56,5 +57,14 @@ public class CreditCardMapper {
 
     public CreditCardJpaEntity toEntity(CreditCard domain) {
         return fromDomainToEntity(domain);
+    }
+
+    public static CreditCardResponse fromCardToCardResponse(CreditCard card) {
+        return new CreditCardResponse(
+                card.getCardNumber(),
+                card.getExpirationDate(),
+                card.getCvc(),
+                card.getFullName()
+        );
     }
 }

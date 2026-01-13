@@ -30,6 +30,11 @@ public class BankTransactionServiceImpl implements BankTransactionService {
     }
 
     @Override
+    public List<BankTransaction> getAllByBankAccountId(Long bankAccountId) {
+        return bankTransactionRepository.findByBankAccountId(bankAccountId);
+    }
+
+    @Override
     @Transactional
     public BankTransaction create(BankTransaction transaction) {
         validateTransaction(transaction);

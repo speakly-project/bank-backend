@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface CreditCardService {
     Optional<CreditCard> getByCardNumber(String cardNumber);
     List<CreditCard> getAll();
+    List<CreditCard> getAllByBankAccountId(Long id);
     CreditCard create(CreditCard creditCard);
     CreditCard update(CreditCard creditCard);
     void deleteByCardNumber(String cardNumber);

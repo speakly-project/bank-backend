@@ -25,14 +25,17 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public Optional<BankAccount> getByIban(String iban) {
-        return bankAccountRepository.findByIban(iban);
+    public BankAccount getByIban(String iban) {
+        return bankAccountRepository.findByIban(iban)
+                .orElseThrow(() -> new ResourceNotFoundException("Bank account not found with IBAN: " + iban));
     }
 
+    @Override
+    public List<BankAccount> getAll() {return bankAccountRepository.findAll();}
 
     @Override
-    public List<BankAccount> getAll() {
-        return bankAccountRepository.findAll();
+    public List<BankAccount> getAllByClientId(Long id) {
+        return bankAccountRepository.findByClientId(id);
     }
 
     @Override

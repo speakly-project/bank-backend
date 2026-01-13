@@ -29,6 +29,11 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
+    public List<CreditCard> getAllByBankAccountId(Long bankAccountId) {
+        return creditCardRepository.findByBankAccountId(bankAccountId);
+    }
+
+    @Override
     @Transactional
     public CreditCard create(CreditCard creditCard) {
         if (creditCardRepository.existsByCardNumber(creditCard.getCardNumber())) {

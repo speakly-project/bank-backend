@@ -49,8 +49,10 @@ public class CardTransactionUseCaseImpl implements CardTransactionUseCase {
         CreditCard creditCard = creditCardService.getByCardNumber(cardNumber)
                 .orElseThrow(() -> new ResourceNotFoundException("Credit card not found: " + cardNumber));
 
-        BankAccount destinationAccount = bankAccountService.getByIban(iban)
-                .orElseThrow(() -> new ResourceNotFoundException("Bank account not found: " + iban));
+        if (creditCard.getBankAccount().getIBAN() == null){
+            throw new BusinessException("Credit card is not associated with any bank account IBAN");
+        }
+        BankAccount destinationAccount = bankAccountService.getByIban(iban);
 
         BankAccount cardAccount = creditCard.getBankAccount();
         if (cardAccount == null) {

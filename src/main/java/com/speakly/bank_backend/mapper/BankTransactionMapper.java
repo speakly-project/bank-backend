@@ -1,5 +1,6 @@
 package com.speakly.bank_backend.mapper;
 
+import com.speakly.bank_backend.controller.response.BankTransactionResponse;
 import com.speakly.bank_backend.domain.model.BankTransaction;
 import com.speakly.bank_backend.persistence.dao.impl.entity.BankTransactionJpaEntity;
 
@@ -55,6 +56,19 @@ public class BankTransactionMapper {
 
     public BankTransactionJpaEntity toEntity(BankTransaction domain) {
         return fromDomainToEntity(domain);
+    }
+
+    public static BankTransactionResponse fromTransactionToTransactionResponse(BankTransaction tx) {
+        String originCardNumber = tx.getOrginCreditCard() != null ? tx.getOrginCreditCard().getCardNumber() : null;
+        return new BankTransactionResponse(
+                tx.getId(),
+                tx.getOrigin(),
+                tx.getType(),
+                originCardNumber,
+                tx.getTransactionDate(),
+                tx.getAmount(),
+                tx.getDescription()
+        );
     }
 }
 

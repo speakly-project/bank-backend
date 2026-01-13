@@ -8,8 +8,9 @@ import java.util.Optional;
 
 public interface BankAccountService {
     Optional<BankAccount> getById(Long id);
-    Optional<BankAccount> getByIban(String iban);
+    BankAccount getByIban(String iban);
     List<BankAccount> getAll();
+    List<BankAccount> getAllByClientId(Long id);
     BankAccount create(BankAccount account);
     BankAccount update(BankAccount account);
     void deleteById(Long id);
