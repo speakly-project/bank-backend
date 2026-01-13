@@ -14,7 +14,7 @@ import com.speakly.bank_backend.domain.service.CreditCardService;
 import com.speakly.bank_backend.domain.usecase.CardTransactionUseCase;
 import com.speakly.bank_backend.exceptions.BusinessException;
 import com.speakly.bank_backend.exceptions.ResourceNotFoundException;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.YearMonth;

@@ -23,10 +23,10 @@ public class BankAccountJpaEntity implements Serializable {
     @JoinColumn(name = "client_id")
     private ClientJpaEntity client;
 
-    @OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "bankAccount", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<CreditCardJpaEntity> creditCards = new ArrayList<>();
 
-    @OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "bankAccount", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<BankTransactionJpaEntity> transactions = new ArrayList<>();
 
     public BankAccountJpaEntity() {}

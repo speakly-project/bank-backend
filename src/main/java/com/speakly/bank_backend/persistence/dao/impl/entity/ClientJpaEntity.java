@@ -29,7 +29,7 @@ public class ClientJpaEntity implements Serializable {
     @Column(name = "api_key")
     private String api_token;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<BankAccountJpaEntity> accounts = new ArrayList<>();
 
     public ClientJpaEntity() {
