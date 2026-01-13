@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "format": "httpie",
+    "version": "1.0.0",
+    "contentType": "collection",
+    "schema": "https://schema.httpie.io/1.0.0.json",
+    "docs": "https://httpie.io/r/help/export-from-httpie",
+    "source": "HTTPie Desktop 2025.2.0"
+  },
+  "entry": {
+    "name": "speakly-bank-payments",
+    "icon": {
+      "name": "default",
+      "color": "gray"
+    },
+    "auth": {
+      "type": "none"
+    },
+    "requests": [
+      {
+        "name": "pago de juan cuenta a juan cuenta dif",
+        "url": "http://localhost:8080/api/speakly-bank/payments",
+        "method": "POST",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"authorization\": {\n    \"username\": \"juan.perez\",\n    \"apiKey\": \"apikey1\"\n  },\n  \"origin\": {\n    \"cardNumber\": \"4532015112830366\",\n    \"expiryDate\": \"2027-12\",\n    \"cvv\": \"123\",\n    \"fullName\": \"Juan Pérez García\"\n  },\n  \"destination\": {\n    \"IBAN\": \"ES7921000813610123456789\"\n  },\n  \"payment\": {\n    \"amount\": 100.00,\n    \"description\": \"Transferencia entre mis cuentas\"\n  }\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "pago a maria, de juan",
+        "url": "http://localhost:8080/api/speakly-bank/payments",
+        "method": "POST",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"authorization\": {\n    \"username\": \"maria.lopez\",\n    \"apiKey\": \"apikey2\"\n  },\n  \"origin\": {\n    \"cardNumber\": \"4532015112830366\",\n    \"expiryDate\": \"2027-12\",\n    \"cvv\": \"123\",\n    \"fullName\": \"Juan Pérez García\"\n  },\n  \"destination\": {\n    \"IBAN\": \"ES1420805801101234567891\"\n  },\n  \"payment\": {\n    \"amount\": 100.00,\n    \"description\": \"Transferencia a María\"\n  }\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "ibanmalo",
+        "url": "http://localhost:8080/api/speakly-bank/payments",
+        "method": "POST",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"authorization\": {\n    \"username\": \"maria.lopez\",\n    \"apiKey\": \"apikey2\"\n  },\n  \"origin\": {\n    \"cardNumber\": \"4532015112830366\",\n    \"expiryDate\": \"2027-12\",\n    \"cvv\": \"123\",\n    \"fullName\": \"Juan Pérez García\"\n  },\n  \"destination\": {\n    \"IBAN\": \"NO1420805801101234567891\"\n  },\n  \"payment\": {\n    \"amount\": 100.00,\n    \"description\": \"Transferencia a María\"\n  }\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "maria to same account",
+        "url": "http://localhost:8080/api/speakly-bank/payments",
+        "method": "POST",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "\n{\n  \"authorization\": {\n    \"username\": \"maria.lopez\",\n    \"apiKey\": \"apikey2\"\n  },\n  \"origin\": {\n    \"cardNumber\": \"4716042456789012\",\n    \"expiryDate\": \"2027-09\",\n    \"cvv\": \"789\",\n    \"fullName\": \"María López Martínez\"\n  },\n  \"destination\": {\n    \"IBAN\": \"ES1420805801101234567891\"\n  },\n  \"payment\": {\n    \"amount\": 500.00,\n    \"description\": \"Ahorro mensual\"\n  },\n  \"createdAt\": \"2026-01-12T12:00:00\"\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "pago negativo",
+        "url": "http://localhost:8080/api/speakly-bank/payments",
+        "method": "POST",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"authorization\": {\n    \"username\": \"maria.lopez\",\n    \"apiKey\": \"apikey2\"\n  },\n  \"origin\": {\n    \"cardNumber\": \"4532015112830366\",\n    \"expiryDate\": \"2027-12\",\n    \"cvv\": \"123\",\n    \"fullName\": \"Juan Pérez García\"\n  },\n  \"destination\": {\n    \"IBAN\": \"ES1420805801101234567891\"\n  },\n  \"payment\": {\n    \"amount\": -100.00,\n    \"description\": \"Transferencia a María\"\n  }\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "concepto <3 letras",
+        "url": "http://localhost:8080/api/speakly-bank/payments",
+        "method": "POST",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"authorization\": {\n    \"username\": \"maria.lopez\",\n    \"apiKey\": \"apikey2\"\n  },\n  \"origin\": {\n    \"cardNumber\": \"4532015112830366\",\n    \"expiryDate\": \"2027-12\",\n    \"cvv\": \"123\",\n    \"fullName\": \"Juan Pérez García\"\n  },\n  \"destination\": {\n    \"IBAN\": \"ES1420805801101234567891\"\n  },\n  \"payment\": {\n    \"amount\": 100.00,\n    \"description\": \"AA\"\n  }\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "pago con insuficiente dinero cuenta",
+        "url": "http://localhost:8080/api/speakly-bank/payments",
+        "method": "POST",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n  \"authorization\": {\n    \"username\": \"maria.lopez\",\n    \"apiKey\": \"apikey2\"\n  },\n  \"origin\": {\n    \"cardNumber\": \"4532015112830366\",\n    \"expiryDate\": \"2027-12\",\n    \"cvv\": \"123\",\n    \"fullName\": \"Juan Pérez García\"\n  },\n  \"destination\": {\n    \"IBAN\": \"ES1420805801101234567891\"\n  },\n  \"payment\": {\n    \"amount\": 100000,\n    \"description\": \"Tengo mucho dinero\"\n  }\n}",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      }
+    ]
+  }
+}

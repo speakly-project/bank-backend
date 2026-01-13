@@ -3,7 +3,7 @@ INSERT INTO client (username, password, name, first_surname, second_surname, dni
 ('juan.perez', 'pass1', 'Juan', 'Pérez', 'García', '12345678A', 'apikey1'),
 ('maria.lopez', 'pass2', 'María', 'López', 'Martínez', '87654321B', 'apikey2'),
 ('carlos.ruiz', 'pass3', 'Carlos', 'Ruiz', 'Sánchez', '11223344C', 'apikey3'),
-('pepe', 'pepe123', 'Pepe', 'Pérez', 'López', '12345678A', 'abcdef123456');
+('pepe', 'pepe123', 'Pepe', 'Pérez', 'López', '12345677A', 'abcdef123456');
 
 -- Insertar cuentas bancarias
 INSERT INTO bank_account (iban, balance, client_id) VALUES
@@ -12,7 +12,7 @@ INSERT INTO bank_account (iban, balance, client_id) VALUES
 ('ES1420805801101234567891', 2500.7500000000, 2),
 ('ES8923100001180123456789', 15000.0000000000, 3),
 ('ES7620770024003102575766', 1500.7500000000, 4),
-('ES9121000418450200051332', 3200.0000000000, 4);
+('ES9121000418450200051333', 3200.0000000000, 4);
 
 -- Insertar tarjetas de crédito (INSERT IGNORE ignora duplicados)
 INSERT IGNORE INTO credit_card (card_number, expiration_date, cvv, full_name, bank_account_id) VALUES
