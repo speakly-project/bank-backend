@@ -72,18 +72,30 @@ public class CardTransactionUseCaseImpl implements CardTransactionUseCase {
         bankAccountService.subtractBalance(cardAccount.getId(), absoluteAmount);
         bankAccountService.addBalance(destinationAccount.getId(), absoluteAmount);
 
-        BankTransaction transaction = new BankTransaction(
+        BankTransaction subtractTransaction = new BankTransaction(
                 null,
                 TransactionOrigin.CREDIT_CARD,
-                transactionType,
+                TransactionType.SUBTRACT,
                 creditCard,
+                null,
+                absoluteAmount,
+                description,
+                cardAccount
+        );
+
+        BankTransaction addTransaction = new BankTransaction(
+                null,
+                TransactionOrigin.TRANSFER,
+                TransactionType.ADD,
+                null,
                 null,
                 absoluteAmount,
                 description,
                 destinationAccount
         );
 
-        bankTransactionService.create(transaction);
+        bankTransactionService.create(subtractTransaction);
+        bankTransactionService.create(addTransaction);
 
         return new CardPaymentDto(
                 request.authorization(),
