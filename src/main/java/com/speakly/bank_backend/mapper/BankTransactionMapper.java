@@ -58,16 +58,19 @@ public class BankTransactionMapper {
         return fromDomainToEntity(domain);
     }
 
-    public static BankTransactionResponse fromTransactionToTransactionResponse(BankTransaction tx) {
-        String originCardNumber = tx.getOrginCreditCard() != null ? tx.getOrginCreditCard().getCardNumber() : null;
+    public static BankTransactionResponse fromTransactionToTransactionResponse(BankTransaction bankTransaction) {
+        if (bankTransaction == null) {
+            return null;
+        }
+        String originCardNumber = bankTransaction.getOrginCreditCard() != null ? bankTransaction.getOrginCreditCard().getCardNumber() : null;
         return new BankTransactionResponse(
-                tx.getId(),
-                tx.getOrigin(),
-                tx.getType(),
+                bankTransaction.getId(),
+                bankTransaction.getOrigin(),
+                bankTransaction.getType(),
                 originCardNumber,
-                tx.getTransactionDate(),
-                tx.getAmount(),
-                tx.getDescription()
+                bankTransaction.getTransactionDate(),
+                bankTransaction.getAmount(),
+                bankTransaction.getDescription()
         );
     }
 }
