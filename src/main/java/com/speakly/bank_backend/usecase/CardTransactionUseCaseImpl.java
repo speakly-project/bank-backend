@@ -160,7 +160,7 @@ public class CardTransactionUseCaseImpl implements CardTransactionUseCase {
     private void validateIbanFormat(String iban) {
         // El IBAN debe empezar por ES
         if (!iban.startsWith("ES")) {
-            throw new IllegalArgumentException("IBAN must start with ES");
+            throw new IllegalArgumentException("IBAN must start with ES and be followed by 22 digits");
         }
 
         // Validar formato básico de IBAN español (ES + 22 dígitos)
