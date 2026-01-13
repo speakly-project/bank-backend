@@ -23,10 +23,10 @@ CREATE TABLE bank_account (
 CREATE TABLE credit_card (
     card_number VARCHAR(20) PRIMARY KEY,
     expiration_date VARCHAR(7) NOT NULL,
-    cvc VARCHAR(4) NOT NULL,
+    cvv VARCHAR(4) NOT NULL,
     full_name VARCHAR(200) NOT NULL,
     bank_account_id BIGINT NOT NULL,
-    FOREIGN KEY (bank_account_id) REFERENCES bank_account(id) ON DELETE CASCADE
+    FOREIGN KEY (bank_account_id) REFERENCES bank_account(id) ON DELETE RESTRICT
 );
 
 -- Tabla de transacciones bancarias
