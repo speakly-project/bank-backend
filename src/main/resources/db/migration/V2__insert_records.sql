@@ -2,21 +2,27 @@
 INSERT INTO client (username, password, name, first_surname, second_surname, dni, api_key) VALUES
 ('juan.perez', 'pass1', 'Juan', 'Pérez', 'García', '12345678A', 'apikey1'),
 ('maria.lopez', 'pass2', 'María', 'López', 'Martínez', '87654321B', 'apikey2'),
-('carlos.ruiz', 'pass3', 'Carlos', 'Ruiz', 'Sánchez', '11223344C', 'apikey3');
+('carlos.ruiz', 'pass3', 'Carlos', 'Ruiz', 'Sánchez', '11223344C', 'apikey3'),
+('pepe', 'pepe123', 'Pepe', 'Pérez', 'López', '12345678A', 'abcdef123456');
 
 -- Insertar cuentas bancarias
 INSERT INTO bank_account (iban, balance, client_id) VALUES
 ('ES9121000418450200051332', 5000.0000000000, 1),
 ('ES7921000813610123456789', 10500.5000000000, 1),
 ('ES1420805801101234567891', 2500.7500000000, 2),
-('ES8923100001180123456789', 15000.0000000000, 3);
+('ES8923100001180123456789', 15000.0000000000, 3),
+('ES7620770024003102575766', 1500.7500000000, 4),
+('ES9121000418450200051332', 3200.0000000000, 4);
 
--- Insertar tarjetas de crédito
-INSERT INTO credit_card (card_number, expiration_date, cvv, full_name, bank_account_id) VALUES
+-- Insertar tarjetas de crédito (INSERT IGNORE ignora duplicados)
+INSERT IGNORE INTO credit_card (card_number, expiration_date, cvv, full_name, bank_account_id) VALUES
 ('4532015112830366', '2027-12', '123', 'Juan Pérez García', 1),
 ('5425233430109903', '2028-06', '456', 'Juan Pérez García', 2),
 ('4716042456789012', '2027-09', '789', 'María López Martínez', 3),
-('5500005555555559', '2029-03', '321', 'Carlos Ruiz Sánchez', 4);
+('5500005555555559', '2029-03', '321', 'Carlos Ruiz Sánchez', 4),
+('4532756279624064', '2027-09', '300', 'Pepe Perez Lopez', 5),
+('5500005555554444', '2028-11', '123', 'Pepe Perez Lopez', 5),
+('6767676767676767', '2067-06', '676', 'Pepe Perez Lopez', 6);
 
 -- Insertar transacciones bancarias
 INSERT INTO bank_transaction (origin, type, credit_card_number, transaction_date, amount, description, bank_account_id) VALUES
@@ -29,4 +35,6 @@ INSERT INTO bank_transaction (origin, type, credit_card_number, transaction_date
 ('CREDIT_CARD', 'SUBTRACT', '4716042456789012', '2026-01-05 16:20:00', 35.25, 'Cafetería', 3),
 ('DOM', 'SUBTRACT', NULL, '2026-01-05 09:00:00', 45.00, 'Domiciliación internet', 3),
 ('TRANSFER', 'ADD', NULL, '2026-01-01 13:00:00', 5000.00, 'Ingreso inicial', 4),
-('CREDIT_CARD', 'SUBTRACT', '5500005555555559', '2026-01-06 20:15:00', 200.00, 'Compra en tienda de electrónica', 4);
+('CREDIT_CARD', 'SUBTRACT', '5500005555555559', '2026-01-06 20:15:00', 200.00, 'Compra en tienda de electrónica', 4),
+('CREDIT_CARD', 'SUBTRACT', '4532756279624064', '2024-01-15 10:30:00', 500.00, 'Pago de la baliza v16.', 5),
+('CREDIT_CARD', 'ADD', '5500005555554444', '2025-01-15 10:30:00', 1500.00, 'Recompensa por capturar a Maduro.', 5);
