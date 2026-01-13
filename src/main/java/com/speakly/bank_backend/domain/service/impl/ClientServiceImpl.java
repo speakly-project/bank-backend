@@ -29,6 +29,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public Client getByName(String username) {
+        return clientRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
+    }
+
+    @Override
     @Transactional
     public Client create(Client client) {
         if (clientRepository.existsByUsername(client.getUsername())) {

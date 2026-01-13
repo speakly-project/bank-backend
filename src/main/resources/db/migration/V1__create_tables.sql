@@ -42,3 +42,13 @@ CREATE TABLE bank_transaction (
     FOREIGN KEY (credit_card_number) REFERENCES credit_card(card_number) ON DELETE SET NULL,
     FOREIGN KEY (bank_account_id) REFERENCES bank_account(id) ON DELETE CASCADE
 );
+
+CREATE TABLE sessions (
+                          id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                          token VARCHAR(255),
+                          client_id BIGINT NOT NULL,
+                          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                          FOREIGN KEY (client_id) REFERENCES client(id) ON DELETE CASCADE
+                              ON UPDATE CASCADE
+
+);

@@ -8,6 +8,7 @@ import com.speakly.bank_backend.domain.model.Client;
 public interface ClientService {
     Optional<Client> getById(Long id);
     List<Client> getAll();
+    Client getByName(String name);
     Client create(Client client);
     Client update(Client client);
     void deleteById(Long id);
