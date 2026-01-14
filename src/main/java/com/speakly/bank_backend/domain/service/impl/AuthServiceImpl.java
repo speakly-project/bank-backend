@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
     public String createTokenForUser(Client user) {
         Client userDb = userRepository.findByUsername(user.getUsername()).orElseThrow(() -> new ResourceNotFoundException("User with username " + user.getUsername() + " not found"));
 
-        if (userDb.getPassword().equals(user.getPassword())) {
+        if (!userDb.getPassword().equals(user.getPassword())) {
             throw new BusinessException("Invalid password");
         }
         return authRepository.createTokenForUser(userDb.getId()).toString();

@@ -11,4 +11,3 @@ public record AccountDetailsResponse(
         List<BankTransactionResponse> transactions
 ) {
 }
-

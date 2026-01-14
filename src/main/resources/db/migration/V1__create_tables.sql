@@ -48,7 +48,8 @@ CREATE TABLE sessions (
                           token VARCHAR(255),
                           client_id BIGINT NOT NULL,
                           created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                          FOREIGN KEY (client_id) REFERENCES client(id) ON DELETE CASCADE
+                          FOREIGN KEY (client_id) REFERENCES client(id)
+                              ON DELETE CASCADE
                               ON UPDATE CASCADE
 
 );

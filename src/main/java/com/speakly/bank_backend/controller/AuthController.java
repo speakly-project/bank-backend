@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/speakly/auth")
+@RequestMapping("api/speakly-bank/auth")
 public class AuthController {
     private final AuthService authService;
-    private final ClientService userService;
+    private final ClientService clientService;
 
 
-    public AuthController(AuthService authService, ClientService userService) {
+    public AuthController(AuthService authService, ClientService clientService) {
         this.authService = authService;
-        this.userService = userService;
+        this.clientService = clientService;
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         DtoValidator.validate(loginRequest);
-        Client user = userService.getByName(loginRequest.username());
+        Client user = clientService.getByName(loginRequest.username());
 
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

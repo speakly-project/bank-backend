@@ -28,7 +28,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                         || handlerMethod.getBeanType().isAnnotationPresent(Authenticated.class);
 
 
-
+        if (!requiresAuth) {
+            return true;
+        }
 
         LoginUserDto user = (LoginUserDto) request.getAttribute("user");
 

@@ -35,8 +35,8 @@ public class SpringConfig {
     }
 
     @Bean
-    public AuthService authService(ClientRepository userRepository, AuthRepository authRepository) {
-        return new AuthServiceImpl(userRepository, authRepository);
+    public AuthService authService(ClientRepository clientRepository, AuthRepository authRepository) {
+        return new AuthServiceImpl(clientRepository, authRepository);
     }
 
     @Bean

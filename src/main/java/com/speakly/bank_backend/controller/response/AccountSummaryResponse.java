@@ -8,4 +8,3 @@ public record AccountSummaryResponse(
         BigDecimal balance
 ) {
 }
-
