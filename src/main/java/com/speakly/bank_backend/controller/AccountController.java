@@ -5,19 +5,15 @@ import com.speakly.bank_backend.controller.response.AccountSummaryResponse;
 import com.speakly.bank_backend.controller.response.BankTransactionResponse;
 import com.speakly.bank_backend.controller.response.CreditCardResponse;
 import com.speakly.bank_backend.domain.model.BankAccount;
-import com.speakly.bank_backend.domain.model.BankTransaction;
-import com.speakly.bank_backend.domain.model.CreditCard;
 import com.speakly.bank_backend.domain.service.BankAccountService;
 import com.speakly.bank_backend.domain.service.BankTransactionService;
 import com.speakly.bank_backend.domain.service.CreditCardService;
-import com.speakly.bank_backend.exceptions.ForbiddenException;
 import com.speakly.bank_backend.mapper.BankTransactionMapper;
 import com.speakly.bank_backend.mapper.CreditCardMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -78,6 +74,40 @@ public class AccountController {
                 cards,
                 transactions
         );
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * Lista todas las cuentas de un cliente con sus tarjetas y transacciones incluidas.
+     */
+    @GetMapping("/detailed")
+    public ResponseEntity<List<AccountDetailsResponse>> getAccountsWithCardsByClientId(
+            @RequestParam("clientId") Long clientId
+    ) {
+        List<BankAccount> accounts = bankAccountService.getAllByClientId(clientId);
+
+        List<AccountDetailsResponse> response = accounts.stream()
+                .map(account -> {
+                    List<CreditCardResponse> cards = creditCardService.getAllByBankAccountId(account.getId())
+                            .stream()
+                            .map(CreditCardMapper::fromCardToCardResponse)
+                            .toList();
+
+                    List<BankTransactionResponse> transactions = bankTransactionService.getAllByBankAccountId(account.getId())
+                            .stream()
+                            .map(BankTransactionMapper::fromTransactionToTransactionResponse)
+                            .toList();
+
+                    return new AccountDetailsResponse(
+                            account.getId(),
+                            account.getIBAN(),
+                            account.getBalance(),
+                            cards,
+                            transactions
+                    );
+                })
+                .toList();
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
