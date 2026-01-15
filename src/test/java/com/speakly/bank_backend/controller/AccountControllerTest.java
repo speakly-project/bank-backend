@@ -1,19 +1,17 @@
 package com.speakly.bank_backend.controller;
 
-import com.speakly.bank_backend.domain.model.BankAccount;
-import com.speakly.bank_backend.domain.model.BankTransaction;
-import com.speakly.bank_backend.domain.model.Client;
-import com.speakly.bank_backend.domain.model.CreditCard;
-import com.speakly.bank_backend.domain.model.TransactionOrigin;
-import com.speakly.bank_backend.domain.model.TransactionType;
-import com.speakly.bank_backend.domain.repository.BankTransactionRepository;
-import com.speakly.bank_backend.domain.repository.CreditCardRepository;
+import com.speakly.bank_backend.annotations.AuthenticationInterceptor;
+import com.speakly.bank_backend.domain.model.*;
 import com.speakly.bank_backend.domain.service.BankAccountService;
+import com.speakly.bank_backend.domain.service.BankTransactionService;
+import com.speakly.bank_backend.domain.service.CreditCardService;
 import com.speakly.bank_backend.exceptions.ResourceNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -26,8 +24,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(AccountController.class)
 class AccountControllerTest {
 
     @Autowired
@@ -37,10 +34,22 @@ class AccountControllerTest {
     private BankAccountService bankAccountService;
 
     @MockitoBean
-    private CreditCardRepository creditCardRepository;
+    private CreditCardService creditCardService;
 
     @MockitoBean
-    private BankTransactionRepository bankTransactionRepository;
+    private BankTransactionService bankTransactionService;
+
+    @MockitoBean
+    private AuthenticationInterceptor authenticationInterceptor;
+
+    @BeforeEach
+    void setUpInterceptor() throws Exception {
+        Mockito.when(authenticationInterceptor.preHandle(
+                Mockito.any(),
+                Mockito.any(),
+                Mockito.any()
+        )).thenReturn(true);
+    }
 
     private static Client client10() {
         return new Client(
@@ -64,9 +73,10 @@ class AccountControllerTest {
 
         when(bankAccountService.getAllByClientId(10L)).thenReturn(List.of(a1, a2));
 
-        mockMvc.perform(get("/api/speakly-bank/accounts/client/10"))
+        mockMvc.perform(get("/api/speakly-bank/accounts")
+                        .param("clientId", "10"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(1))
                 .andExpect(jsonPath("$[0].iban").value("ES9121000418450200051332"))
                 .andExpect(jsonPath("$[0].balance").value(1500.50));
@@ -90,13 +100,12 @@ class AccountControllerTest {
         );
 
         when(bankAccountService.getByIban("ES9121000418450200051332")).thenReturn(account);
-        when(creditCardRepository.findByBankAccountId(1L)).thenReturn(List.of(card));
-        when(bankTransactionRepository.findByBankAccountId(1L)).thenReturn(List.of(tx));
+        when(creditCardService.getAllByBankAccountId(1L)).thenReturn(List.of(card));
+        when(bankTransactionService.getAllByBankAccountId(1L)).thenReturn(List.of(tx));
 
-        mockMvc.perform(get("/api/speakly-bank/accounts/ES9121000418450200051332/details")
-                        .param("clientId", "10"))
+        mockMvc.perform(get("/api/speakly-bank/accounts/ES9121000418450200051332"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.iban").value("ES9121000418450200051332"))
                 .andExpect(jsonPath("$.balance").value(1500.50))
                 .andExpect(jsonPath("$.cards[0].cardNumber").value("4532015112830366"))
@@ -108,8 +117,7 @@ class AccountControllerTest {
         when(bankAccountService.getByIban("ES0000000000000000000000"))
                 .thenThrow(new ResourceNotFoundException("Bank account not found with IBAN: ES0000000000000000000000"));
 
-        mockMvc.perform(get("/api/speakly-bank/accounts/ES0000000000000000000000/details")
-                        .param("clientId", "10"))
+        mockMvc.perform(get("/api/speakly-bank/accounts/ES0000000000000000000000"))
                 .andExpect(status().isNotFound());
     }
 }

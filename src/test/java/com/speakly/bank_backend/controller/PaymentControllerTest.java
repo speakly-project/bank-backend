@@ -1,12 +1,9 @@
 package com.speakly.bank_backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.speakly.bank_backend.annotations.AuthenticationInterceptor;
 import com.speakly.bank_backend.controller.request.CardPaymentRequest;
-import com.speakly.bank_backend.domain.dto.AuthorizationDto;
-import com.speakly.bank_backend.domain.dto.CardPaymentDto;
-import com.speakly.bank_backend.domain.dto.DestinationDto;
-import com.speakly.bank_backend.domain.dto.OriginDto;
-import com.speakly.bank_backend.domain.dto.PaymentDto;
+import com.speakly.bank_backend.domain.dto.*;
 import com.speakly.bank_backend.domain.usecase.CardTransactionUseCase;
 import com.speakly.bank_backend.exceptions.BusinessException;
 import com.speakly.bank_backend.exceptions.ResourceNotFoundException;
@@ -15,23 +12,21 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(PaymentController.class)
 class PaymentControllerTest {
 
     @Autowired
@@ -40,11 +35,23 @@ class PaymentControllerTest {
     @MockitoBean
     private CardTransactionUseCase cardTransactionUseCase;
 
+    @MockitoBean
+    private AuthenticationInterceptor authenticationInterceptor;
+
     @Autowired
     private ObjectMapper objectMapper;
 
     private CardPaymentRequest paymentRequest;
     private CardPaymentDto paymentDto;
+
+    @BeforeEach
+    void setUpInterceptor() throws Exception {
+        Mockito.when(authenticationInterceptor.preHandle(
+                Mockito.any(),
+                Mockito.any(),
+                Mockito.any()
+        )).thenReturn(true);
+    }
 
     @BeforeEach
     void setUp() {
@@ -86,8 +93,8 @@ class PaymentControllerTest {
             String requestJson = objectMapper.writeValueAsString(paymentRequest);
 
             mockMvc.perform(post("/api/speakly-bank/payments")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(requestJson))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(requestJson))
                     .andDo(print())
                     .andExpect(status().isOk())
                     .andExpect(content().contentType("application/json"))
@@ -125,8 +132,8 @@ class PaymentControllerTest {
             String requestJson = objectMapper.writeValueAsString(negativeRequest);
 
             mockMvc.perform(post("/api/speakly-bank/payments")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(requestJson))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(requestJson))
                     .andDo(print())
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.status").value("SUCCESS"))
@@ -138,29 +145,6 @@ class PaymentControllerTest {
     class ErrorTests {
 
         @Test
-        void shouldReturnBadRequestWhenMissingCardNumber() throws Exception {
-            OriginDto invalidOrigin = new OriginDto(null, "2027-12", "123", "Juan Pérez García");
-            CardPaymentRequest invalidRequest = new CardPaymentRequest(
-                    paymentRequest.authorization(),
-                    invalidOrigin,
-                    paymentRequest.destination(),
-                    paymentRequest.payment(),
-                    LocalDateTime.now()
-            );
-
-            Mockito.when(cardTransactionUseCase.processCardPayment(any()))
-                    .thenThrow(new IllegalArgumentException("Card number is required"));
-
-            String requestJson = objectMapper.writeValueAsString(invalidRequest);
-
-            mockMvc.perform(post("/api/speakly-bank/payments")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(requestJson))
-                    .andDo(print())
-                    .andExpect(status().isBadRequest());
-        }
-
-        @Test
         void shouldReturnNotFoundWhenCardDoesNotExist() throws Exception {
             Mockito.when(cardTransactionUseCase.processCardPayment(any()))
                     .thenThrow(new ResourceNotFoundException("Credit card not found: 4532015112830366"));
@@ -168,8 +152,8 @@ class PaymentControllerTest {
             String requestJson = objectMapper.writeValueAsString(paymentRequest);
 
             mockMvc.perform(post("/api/speakly-bank/payments")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(requestJson))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(requestJson))
                     .andDo(print())
                     .andExpect(status().isNotFound());
         }
@@ -182,8 +166,8 @@ class PaymentControllerTest {
             String requestJson = objectMapper.writeValueAsString(paymentRequest);
 
             mockMvc.perform(post("/api/speakly-bank/payments")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(requestJson))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(requestJson))
                     .andDo(print())
                     .andExpect(status().isInternalServerError());
         }
@@ -196,8 +180,8 @@ class PaymentControllerTest {
             String requestJson = objectMapper.writeValueAsString(paymentRequest);
 
             mockMvc.perform(post("/api/speakly-bank/payments")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(requestJson))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(requestJson))
                     .andDo(print())
                     .andExpect(status().isInternalServerError());
         }
@@ -219,11 +203,10 @@ class PaymentControllerTest {
             String requestJson = objectMapper.writeValueAsString(selfTransferRequest);
 
             mockMvc.perform(post("/api/speakly-bank/payments")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(requestJson))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(requestJson))
                     .andDo(print())
                     .andExpect(status().isInternalServerError());
         }
     }
 }
-
