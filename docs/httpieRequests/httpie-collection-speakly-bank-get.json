@@ -8,7 +8,7 @@
     "source": "HTTPie Desktop 2025.2.0"
   },
   "entry": {
-    "name": "speakly-bank-getreq",
+    "name": "speakly-bank-get",
     "icon": {
       "name": "default",
       "color": "gray"
@@ -18,7 +18,7 @@
     },
     "requests": [
       {
-        "name": "",
+        "name": "accounts?clientId",
         "url": "http://localhost:8080/api/speakly-bank/accounts?clientId=1",
         "method": "GET",
         "headers": [],
@@ -47,8 +47,8 @@
         }
       },
       {
-        "name": "",
-        "url": "http://localhost:8080/api/speakly-bank/accounts/ES9121000418450200051332",
+        "name": "accounts/{IBAN}",
+        "url": "http://localhost:8080/api/speakly-bank/accounts/ES9121000418450200051333",
         "method": "GET",
         "headers": [],
         "queryParams": [],
@@ -76,8 +76,37 @@
         }
       },
       {
-        "name": "",
+        "name": "transactions?bankAccountId=",
         "url": "http://localhost:8080/api/speakly-bank/transactions?bankAccountId=1",
+        "method": "GET",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "none",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "accounts/detailed?clientId=",
+        "url": "http://localhost:8080/api/speakly-bank/accounts/detailed?clientId=4",
         "method": "GET",
         "headers": [],
         "queryParams": [],
