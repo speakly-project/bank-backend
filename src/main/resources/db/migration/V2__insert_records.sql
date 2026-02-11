@@ -1,7 +1,7 @@
 -- Insertar clientes de ejemplo
 INSERT INTO client (username, password, name, first_surname, second_surname, dni, api_key) VALUES
 ('juan', 'juan123', 'Juan', 'Pérez', 'García', '12345678A', 'apikey1'),
-('maria', 'maria123', 'María', 'López', 'Martínez', '87654321B', 'apikey2'),
+('speakly', 'speakly123', 'Alberto', 'El', 'Furbolero', '87654321B', 'apikey2'),
 ('carlos', 'carlos123', 'Carlos', 'Ruiz', 'Sánchez', '11223344C', 'apikey3'),
 ('pepe', 'pepe123', 'Pepe', 'Pérez', 'López', '12345677A', 'apikey4');
 
@@ -18,7 +18,7 @@ INSERT INTO bank_account (iban, balance, client_id) VALUES
 INSERT INTO credit_card (card_number, expiration_date, cvv, full_name, bank_account_id) VALUES
 ('4532015112830366', '2027-12', '123', 'Juan Perez Garcia', 1),
 ('5425233430109903', '2028-06', '456', 'Juan Pérez Garcia', 2),
-('4716042456789012', '2027-09', '789', 'Maria Lopez Martinez', 3),
+('4716042456789012', '2027-09', '789', 'Alberto El Furbolero', 3),
 ('5500005555555559', '2029-03', '321', 'Carlos Ruiz Sanchez', 4),
 ('4532756279624064', '2027-09', '300', 'Pepe Perez Lopez', 5),
 ('5500005555554444', '2028-11', '123', 'Pepe Perez Lopez', 5),
